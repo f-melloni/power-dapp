@@ -1,0 +1,45 @@
+﻿@using PowerDapp_UserArea.Database.Entity;
+@model List<Order>;
+@{
+    ViewData["Title"] = "Bounty Program";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="disclaimer auto rounded dashboard">
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <a asp-action="Payments" class="btn btn-success pull-right">Payments</a>
+            <a asp-action="Dashboard" class="btn btn-primary pull-left">Dashboard</a>
+            <a asp-action="BountyProgram" class="btn btn-primary">Bounty program</a>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-12">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="text-center">Date</th>
+                        <th class="text-center">Status</th>
+                        <th class="text-center">Amount</th>
+                        <th class="text-center">Currency</th>
+                        <th class="text-center">Tokens</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach(Order o in Model) {
+                        <tr>
+                            <td>@o.DateCreated.ToString("yyyy-MM-dd")</td>
+                            <td class="text-center @(o.IsPaymentReceived ? "text-success" : "text-danger")">@(o.IsPaymentReceived ? "PAID" : "NOT PAID")</td>
+                            <td class="text-center">@Math.Round(o.Price, 6)</td>
+                            <td class="text-center">@o.CurrencyCode</td>
+                            <td class="text-right">@o.TokensAmount</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+

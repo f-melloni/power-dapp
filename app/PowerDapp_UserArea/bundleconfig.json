@@ -1,0 +1,18 @@
+﻿// Configure bundling and minification for the project.
+// More info at https://go.microsoft.com/fwlink/?LinkId=808241
+[
+  {
+    "outputFileName": "wwwroot/js/site.js",
+    "inputFiles": [
+      "wwwroot/lib/jquery/dist/jquery.js",
+      "wwwroot/lib/jquery-validation/dist/jquery.validate.js",
+      "wwwroot/lib/jquery-validation/dist/additional-methods.js",
+      "wwwroot/lib/jquery-validation-unobtrusive/jquery-validation-unobtrusive.js",
+      "wwwroot/lib/jquery-qrcode/jquery.qrcode.min.js",
+      "wwwroot/lib/bootstrap/dist/js/bootstrap.js",
+      "wwwroot/js/ui.js"
+    ],
+    "includeInProject": true,
+    "minify": { "enabled": true}
+  }
+]

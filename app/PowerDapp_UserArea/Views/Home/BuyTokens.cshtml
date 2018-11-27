@@ -1,0 +1,153 @@
+﻿@model BuyTokensAjaxModel
+@using PowerDapp_UserArea.Database.Entity
+@{
+    ViewData["Title"] = "Buy Wallets";
+}
+
+<form asp-action="BuyTokens" method="post" class="buy-form">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-6 left-col">
+            <div class="form-row">
+                <div class="col-8">
+                    <input asp-for="TokensAmount" class="form-control text-center" />
+                    <span asp-validation-for="TokensAmount" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="col-8">
+                    <input readonly class="form-control-plaintext text-center" value="PowerDapp Token" />
+                </div>
+            </div>
+        </div>
+        <div class="col-6 right-col">
+            <div class="form-row justify-content-end">
+                <div class="col-8">
+                    <input class="form-control text-center" id="PaymentAmount" readonly value="@((Model.TokensAmount * ((List<ExchangeRate>)ViewData["ExchangeRates"])[0].Rate).ToString())" />
+                </div>
+            </div>
+            <div class="form-row justify-content-end">
+                <div class="col-8">
+                    <div class="masked-select">
+                        <div class="input-group">
+                            <input type="text" id="PaymentTypeValue" class="text-center form-control" value="@(((List<ExchangeRate>)ViewData["ExchangeRates"])[0].Name)" />
+                            <div class="input-group-append">
+                                <span class="input-group-text bg-primary">
+                                    <span class="fa fa-chevron-down"></span>
+                                </span>
+                            </div>
+                        </div>
+                        <select asp-for="CurrencyCode" class="form-control">
+                            @foreach (ExchangeRate er in (List<ExchangeRate>)ViewData["ExchangeRates"]) {
+                                <option value="@er.CurrencyCode" data-rate="@er.Rate.ToString()">@er.Name</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row my-4">
+        <div class="col-12 text-center">
+            <span class="convert"></span>
+        </div>
+    </div>
+    <div class="row summary">
+        <div class="col-6 left-col">
+            <p class="text-success">0% Bonus</p>
+        </div>
+        <div class="col-6 right-col">
+            <p class="text-success text-right">0 Token</p>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-4 mt-3">
+        <div class="col-4">
+            <button type="submit" class="btn btn-success w-100" id="btnBuy">Buy</button>
+        </div>
+    </div>
+    <div class="row summary">
+        <div class="col-6 left-col">
+            <p>&nbsp;</p>
+        </div>
+        <div class="col-6 right-col">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    <div class="row justify-content-center mb-2 mt-3">
+        <div class="col-6">
+            <div id="PaymentInfo" class="alert alert-primary bg-primary text-center">Payment not yet received</div>
+        </div>
+    </div>
+    <div class="row summary">
+        <div class="col-6 left-col">
+            <p>&nbsp;</p>
+        </div>
+        <div class="col-6 right-col">
+            <p>&nbsp;</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="text-center text-muted">Payment processing can take several minutes</p>
+        </div>
+    </div>
+</form>
+
+<div class="modal" tabindex="-1" role="dialog" id="PaymentModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="disclaimer rounded auto">
+                    <div class="text-center"><div id="qrcode"></div></div>
+                    <p class="text-center">Price in <span id="CurrencyText">ETH</span>: <span id="PriceText"></span></p>
+                    <p class="text-center">Number of Tokens: <span id="TokensText"></span></p>
+                    <p class="text-center">Address: <span id="AddressText"></span></p>
+                    <p class="text-center" id="GasLimitText">Gas limit: 21 000</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            <button type="button" class="btn btn-dashed btn-block" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" id="PaymentReceivedModal">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="disclaimer rounded auto">
+                    <p class="text-center">
+                        Thank you for your payment. We have just received <span id="ReceivedText"></span> <span id="ReceivedCurrencyText"></span>
+                        at our address. After launch of the ICO, you will receive <span id="ReceivedTokensText"></span> tokens from us.
+                    </p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="container-fluid">
+                    <div class="row justify-content-center">
+                        <div class="col-5">
+                            <button type="button" class="btn btn-dashed btn-block" data-dismiss="modal">Done</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

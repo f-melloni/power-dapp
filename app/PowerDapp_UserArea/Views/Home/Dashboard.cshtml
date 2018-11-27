@@ -1,0 +1,76 @@
+﻿@{
+    ViewData["Title"] = "Dashboard";
+    Layout = "~/Views/Shared/_DashboardLayout.cshtml";
+}
+
+<div class="disclaimer auto rounded dashboard">
+
+    <div class="row">
+        <div class="col-12 text-center">
+            <a asp-action="Payments" class="btn btn-primary pull-right">Payments</a>
+            <a asp-action="Dashboard" class="btn btn-success pull-left">Dashboard</a>
+            <a asp-action="BountyProgram" class="btn btn-primary">Bounty program</a>
+        </div>
+    </div>
+    <hr />
+    <div class="row">
+        <div class="col-4 setup-info">
+            <div class="clearfix">
+                <span class="bg-success square check"></span>
+                Disclaimer
+            </div>
+            <div class="clearfix arrow-down"><span></span></div>
+            <div class="clearfix">
+                @if (string.IsNullOrEmpty((string)ViewData["WalletAddress"])) {
+                    <a asp-action="AddWallet" class="bg-light text-muted square">X</a>
+                }
+                else {
+                    <span class="bg-success square check"></span>
+                }
+                ETH Wallet address
+            </div>
+            <div class="clearfix arrow-down"><span></span></div>
+            <div class="clearfix">
+                @if ((int)ViewData["TokensPaid"] == 0 && (int)ViewData["TokensNotPaid"] == 0) {
+                    <a asp-action="BuyTokens" class="bg-light text-muted square">X</a>
+                }
+                else {
+                    <span class="bg-success square check"></span>
+                }
+                <strong>Buy tokens</strong>
+            </div>
+            <div class="clearfix arrow-down"><span></span></div>
+            <div class="clearfix">
+                <span class="bg-light text-muted square">X</span>
+                Verification
+            </div>
+        </div>
+        <div class="col-8 token-info">
+            <table>
+                <tr>
+                    <td>Tokens bought:</td>
+                    <td class="text-right">
+                        @ViewData["TokensPaid"]
+                        @if((int)ViewData["TokensNotPaid"] > 0) {
+                            <span class="text-muted" title="Payment not yet received">(+@ViewData["TokensNotPaid"])</span>
+                        }
+                    </td>
+                </tr>
+                <tr>
+                    <td>Bounty program:</td>
+                    <td class="text-right">0 tokens</td>
+                </tr>
+                <tr>
+                    <td>ETH wallet:</td>
+                    <td class="text-right">@ViewData["WalletAddress"]</td>
+                </tr>
+            </table>
+
+            <div class="buttons">
+                <a asp-action="LogOff" asp-controller="Account" class="btn btn-primary pull-right">Log out</a>
+                <a asp-action="BuyTokens" class="btn btn-success">Buy tokens</a>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,32 @@
+﻿
+@{
+    ViewData["Title"] = "Disclaimer";
+}
+
+<h3 class="text-center">Disclaimer</h3>
+<div class="disclaimer">
+    <p class="scroll">
+        Competently optimize enterprise-wide interfaces for focused sources. Monotonectally recaptiualize timely ROI rather than competitive niches. Professionally leverage other's magnetic ideas with performance based e-business. Appropriately empower scalable e-commerce before market-driven imperatives. Proactively syndicate focused convergence without prospective ROI.
+        <br /><br />
+        Appropriately redefine best-of-breed functionalities via collaborative e-commerce. Assertively revolutionize best-of-breed channels vis-a-vis top-line imperatives. Enthusiastically disintermediate leading-edge models after cross-platform schemas. Globally strategize best-of-breed users after functional applications. Appropriately brand principle-centered catalysts for change via wireless potentialities.
+        <br /><br />
+        Uniquely deliver 24/365 partnerships with enterprise technologies. Professionally facilitate tactical meta-services for technically sound relationships. Seamlessly customize holistic process improvements after transparent vortals. Enthusiastically myocardinate performance based mindshare whereas transparent sources. Competently initiate extensible benefits without low-risk high-yield alignments.
+        <br /><br />
+        Distinctively formulate bricks-and-clicks benefits rather than B2B total linkage. Assertively customize value-added content whereas high-payoff networks. Enthusiastically brand client-centered intellectual capital through web-enabled schemas. Assertively repurpose impactful supply chains for enterprise-wide core competencies. Uniquely extend performance based initiatives without dynamic communities.
+        <br /><br />
+        Holisticly engineer visionary ideas for efficient portals. Objectively syndicate flexible platforms before future-proof strategic theme areas. Quickly communicate next-generation expertise without holistic niches. Credibly create corporate schemas before out-of-the-box web services. Dynamically enable seamless data rather than market positioning best practices.
+        <br /><br />
+        Authoritatively reinvent fully tested data and enterprise technology. Efficiently synthesize.
+    </p>
+</div>
+
+<div class="row">
+    <div class="col-5">
+        <a asp-controller="Account" asp-action="LogOff" class="btn btn-primary btn-block">Disagree</a>
+    </div>
+    <div class="col-2"></div>
+    <div class="col-5">
+        <a asp-action="@((bool)ViewData["hasTokens"] ? "Dashboard" : "BuyTokens")" class="btn btn-success btn-block">Agree</a>
+    </div>
+</div>
+

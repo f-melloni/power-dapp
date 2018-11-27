@@ -1,0 +1,41 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using PowerDapp_UserArea.Models.AccountViewModels
+@using PowerDapp_UserArea.Database.Entity
+
+@model LoginViewModel
+@inject SignInManager<User> SignInManager
+
+@{
+    ViewData["Title"] = "Log in";
+}
+
+<form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+    <div asp-validation-summary="All" class="text-danger"></div>
+    <div class="form-row">
+        <div class="col-5">
+            <input asp-for="Email" class="form-control text-center" placeholder="E-mail" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5">
+            <input asp-for="Password" class="form-control text-center" placeholder="Password" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-row buttons-row">
+        <div class="col-5">
+            <button type="submit" class="btn btn-primary btn-block">Submit</button>
+        </div>
+        <div class="col-2"></div>
+        <div class="col-5">
+            <a asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" class="btn btn-success btn-block">Register</a>
+        </div>
+    </div>
+</form>
+<p class="text-center forgot-link-container">
+    <a asp-action="ForgotPassword" class="forgot-link">Forgot your password?</a>
+</p>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

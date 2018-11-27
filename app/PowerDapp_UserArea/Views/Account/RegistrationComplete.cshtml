@@ -1,0 +1,13 @@
+﻿@{
+    ViewData["Title"] = "RegistrationComplete";
+}
+
+<p class="confirm-message">We have just sent you a registration email. Please check your inbox and confirm your registration.</p>
+
+<form asp-action="ResendConfirmationEmail" method="post">
+    <input type="hidden" name="userId" value="@ViewData["userId"]" />
+    <div class="text-center">
+        <button type="submit" class="btn btn-success">Resend Email</button>
+    </div>
+</form>
+

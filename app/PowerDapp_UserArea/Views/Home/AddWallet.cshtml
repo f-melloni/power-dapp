@@ -1,0 +1,31 @@
+﻿@model PowerDapp_UserArea.Models.WalletModel
+
+@{
+    ViewData["Title"] = "Add ethereum wallet";
+}
+
+<p class="text-success text-center mb-5">
+    This wallet will be credited with tokens
+</p>
+
+<form asp-action="AddWallet" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <div class="row">
+        <div class="col-12">
+            <input asp-for="walletAddress" class="form-control text-center" placeholder="Your Ethereum Wallet" />
+            <span asp-validation-for="walletAddress" class="text-danger"></span>
+        </div>
+        <div class="col-12 mt-4">
+            <p class="text-center text-success">Can be changed in account administration</p>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-5">
+            <input type="submit" value="Submit" class="btn btn-primary btn-block" />
+        </div>
+    </div>
+</form>
+
+<p class="text-center">
+    <a href="#" class="text-muted">How to create an Ethereum wallet?</a>
+</p>
